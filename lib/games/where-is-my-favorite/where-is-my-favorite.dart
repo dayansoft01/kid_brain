@@ -12,7 +12,12 @@ class WhereIsMyFavoritePage extends StatefulWidget {
 class _WhereIsMyFavoritePageState extends State<WhereIsMyFavoritePage> {
   List<Color> colors = [Colors.red, Colors.green, Colors.yellow];
   List<Color> selectedColors = [];
-  int favoriteColorIndex = 0;
+  late Color favoriteColor;
+  bool favoriteVisible = true;
+
+  _WhereIsMyFavoritePageState() {
+    restart();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,25 @@ class _WhereIsMyFavoritePageState extends State<WhereIsMyFavoritePage> {
       appBar: AppBar(
         title: Text('我的宝贝在哪里'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.refresh)),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                selectedColors.shuffle();
+              });
+            },
+            child: Text(
+              '洗牌',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                this.restart();
+              });
+            },
+            icon: Icon(Icons.refresh),
+          ),
         ],
       ),
       body: Padding(
@@ -28,38 +51,7 @@ class _WhereIsMyFavoritePageState extends State<WhereIsMyFavoritePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1 / 3,
-                child: Image.asset("where-is-my-favorite/bmw.jpg"),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1 / 3,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(''),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1 / 3,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(''),
-                ),
-              ),
-            ),
-          ],
+          children: getCards(),
         ),
       ),
     );
@@ -67,10 +59,54 @@ class _WhereIsMyFavoritePageState extends State<WhereIsMyFavoritePage> {
 
   //重新开始
   restart() {
+    favoriteVisible = true;
     selectedColors = [...colors];
-    favoriteColorIndex = Random().nextInt(selectedColors.length);
+    favoriteColor = selectedColors[Random().nextInt(selectedColors.length)];
   }
 
-  //洗牌
-  refresh() {}
+  getCards() {
+    List<Widget> cards = [];
+    for (var color in selectedColors) {
+      if (cards.length != 0) {
+        cards.add(SizedBox(width: 10));
+      }
+      if (favoriteVisible && color == favoriteColor) {
+        cards.add(
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1 / 3,
+              child: GestureDetector(
+                child: Image.asset("where-is-my-favorite/bmw.jpg"),
+                onTap: () {
+                  setState(() {
+                    favoriteVisible = !favoriteVisible;
+                  });
+                },
+              ),
+            ),
+          ),
+        );
+      } else {
+        cards.add(
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1 / 3,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (color == favoriteColor) {
+                    setState(() {
+                      favoriteVisible = !favoriteVisible;
+                    });
+                  }
+                },
+                child: Text(''),
+                style: ElevatedButton.styleFrom(primary: color),
+              ),
+            ),
+          ),
+        );
+      }
+    }
+    return cards;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:kid_brain/desktop.dart';
 
 class KidBrainApp extends StatelessWidget {
@@ -20,6 +21,7 @@ class KidBrainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: DesktopPage(),
+      builder: EasyLoading.init(),
     );
   }
 }
