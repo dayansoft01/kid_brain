@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kid_brain/games/point-to-point/point-to-point.dart';
 import 'package:kid_brain/games/where-is-my-favorite/where-is-my-favorite.dart';
 
 class DesktopPage extends StatelessWidget {
@@ -40,6 +41,27 @@ class DesktopPage extends StatelessWidget {
                                 builder: (context) => WhereIsMyFavoritePage()));
                       },
                       child: Text('我的宝贝在哪里'),
+                    ),
+                    height: 100,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PointToPointPage()));
+                      },
+                      child: Text('连线'),
                     ),
                     height: 100,
                   ),
