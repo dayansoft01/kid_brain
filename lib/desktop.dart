@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kid_brain/games/learn-number/learn-number.dart';
 import 'package:kid_brain/games/point-to-point/point-to-point.dart';
 import 'package:kid_brain/games/where-is-my-favorite/where-is-my-favorite.dart';
 
@@ -68,9 +69,32 @@ class DesktopPage extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LearnNumberPage()));
+                      },
+                      child: Text('认识数字'),
+                    ),
+                    height: 100,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+

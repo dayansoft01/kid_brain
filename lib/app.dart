@@ -7,6 +7,7 @@ class KidBrainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: '儿童乐园',
       theme: ThemeData(
         // This is the theme of your application.
