@@ -15,7 +15,6 @@ class _LearnNumberPageState extends State<LearnNumberPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     this.generateValue();
     super.initState();
   }
